@@ -11,11 +11,10 @@ import gallerySite4 from "@/assets/gallery-site-4.jpg";
 import gallerySite5 from "@/assets/gallery-site-5.jpg";
 import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
+import gallery7 from "@/assets/gallery-7.jpg";
+import gallery8 from "@/assets/gallery-8.jpg";
+
 const vehicleImages = [{
-  src: galleryBanner,
-  alt: "Yurdem Lojistik Banner",
-  title: "Yurdem Lojistik"
-}, {
   src: galleryTruck1,
   alt: "Mercedes Actros Araç",
   title: "Araç Filomuz"
@@ -39,7 +38,16 @@ const vehicleImages = [{
   src: gallery6,
   alt: "Yurdem Lojistik Tanker",
   title: "Tanker Hizmeti"
+}, {
+  src: gallery7,
+  alt: "Mercedes Araç Parkı",
+  title: "Araç Parkı"
+}, {
+  src: gallery8,
+  alt: "Yurdem Lojistik Ofis",
+  title: "Merkez Ofis"
 }];
+
 const siteImages = [{
   src: gallerySite1,
   alt: "Petrol Sahası Çalışması",
@@ -63,10 +71,46 @@ const siteImages = [{
 }];
 
 const Gallery = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const vehicleScrollRef = useRef<HTMLDivElement>(null);
+  const siteScrollRef = useRef<HTMLDivElement>(null);
 
+  // Vehicle gallery - scroll right
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
+    const scrollContainer = vehicleScrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    let scrollPos = scrollContainer.scrollWidth / 2;
+
+    const animate = () => {
+      scrollPos -= 0.5;
+      if (scrollPos <= 0) {
+        scrollPos = scrollContainer.scrollWidth / 2;
+      }
+      scrollContainer.scrollLeft = scrollPos;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    const handleMouseEnter = () => cancelAnimationFrame(animationId);
+    const handleMouseLeave = () => {
+      animationId = requestAnimationFrame(animate);
+    };
+
+    scrollContainer.addEventListener("mouseenter", handleMouseEnter);
+    scrollContainer.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      scrollContainer.removeEventListener("mouseenter", handleMouseEnter);
+      scrollContainer.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  // Site gallery - scroll left
+  useEffect(() => {
+    const scrollContainer = siteScrollRef.current;
     if (!scrollContainer) return;
 
     let animationId: number;
@@ -107,17 +151,41 @@ const Gallery = () => {
           </p>
         </div>
 
-        {/* Vehicle Gallery */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {vehicleImages.map((image, index) => <div key={index} className={`group relative overflow-hidden rounded-xl shadow-card hover:shadow-card-hover transition-all duration-500 ${index === 0 ? "md:col-span-2 lg:col-span-3" : ""}`}>
-              <img src={image.src} alt={image.alt} className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${index === 0 ? "h-64 md:h-80 object-contain bg-white" : "h-72"}`} />
+        {/* Banner */}
+        <div className="mb-12">
+          <div className="group relative overflow-hidden rounded-xl shadow-card hover:shadow-card-hover transition-all duration-500">
+            <img src={galleryBanner} alt="Yurdem Lojistik Banner" className="w-full h-64 md:h-80 object-contain bg-white" />
+          </div>
+        </div>
+
+        {/* Vehicle Gallery - Scrolling Right */}
+        <div className="mb-8">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+            Araç Filomuz
+          </h3>
+        </div>
+        <div 
+          ref={vehicleScrollRef}
+          className="flex gap-6 overflow-x-hidden mb-16"
+        >
+          {[...vehicleImages, ...vehicleImages].map((image, index) => (
+            <div 
+              key={index} 
+              className="group relative flex-shrink-0 w-80 md:w-96 overflow-hidden rounded-xl shadow-card hover:shadow-card-hover transition-all duration-500"
+            >
+              <img 
+                src={image.src} 
+                alt={image.alt} 
+                className="w-full h-64 md:h-72 object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                 <h3 className="font-heading text-xl font-bold text-primary-foreground">
                   {image.title}
                 </h3>
               </div>
-            </div>)}
+            </div>
+          ))}
         </div>
 
         {/* Work Areas Section */}
@@ -130,12 +198,11 @@ const Gallery = () => {
           </p>
         </div>
 
-        {/* Horizontal Scrolling Gallery */}
+        {/* Site Gallery - Scrolling Left */}
         <div 
-          ref={scrollRef}
+          ref={siteScrollRef}
           className="flex gap-6 overflow-x-hidden"
         >
-          {/* Duplicate images for infinite scroll effect */}
           {[...siteImages, ...siteImages].map((image, index) => (
             <div 
               key={index} 
