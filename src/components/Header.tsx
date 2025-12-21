@@ -1,6 +1,8 @@
 import logo from "@/assets/logo-new.jpg";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,6 +38,12 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
+            <Link to="/auth">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Settings className="h-4 w-4" />
+                Admin
+              </Button>
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -61,6 +69,12 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
+            <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+              <Button variant="outline" size="sm" className="gap-2 mt-3 w-full">
+                <Settings className="h-4 w-4" />
+                Admin
+              </Button>
+            </Link>
           </nav>
         )}
       </div>

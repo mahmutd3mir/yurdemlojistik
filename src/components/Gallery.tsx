@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import galleryBanner from "@/assets/gallery-banner.jpg";
 import galleryTruck1 from "@/assets/gallery-truck-1.jpg";
 import galleryTruck2 from "@/assets/gallery-truck-2.jpg";
@@ -13,6 +14,12 @@ import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
 import gallery7 from "@/assets/gallery-7.jpg";
 import gallery8 from "@/assets/gallery-8.jpg";
+
+interface UploadedPhoto {
+  id: string;
+  url: string;
+  file_name: string;
+}
 
 const vehicleImages = [{
   src: galleryTruck1,
@@ -73,6 +80,23 @@ const siteImages = [{
 const Gallery = () => {
   const vehicleScrollRef = useRef<HTMLDivElement>(null);
   const siteScrollRef = useRef<HTMLDivElement>(null);
+  const uploadedScrollRef = useRef<HTMLDivElement>(null);
+  const [uploadedPhotos, setUploadedPhotos] = useState<UploadedPhoto[]>([]);
+
+  // Fetch uploaded photos from database
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      const { data } = await supabase
+        .from('gallery_photos')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (data) {
+        setUploadedPhotos(data);
+      }
+    };
+    fetchPhotos();
+  }, []);
 
   // Vehicle gallery - scroll right
   useEffect(() => {
@@ -201,7 +225,7 @@ const Gallery = () => {
         {/* Site Gallery - Scrolling Left */}
         <div 
           ref={siteScrollRef}
-          className="flex gap-6 overflow-x-hidden"
+          className="flex gap-6 overflow-x-hidden mb-16"
         >
           {[...siteImages, ...siteImages].map((image, index) => (
             <div 
@@ -222,6 +246,31 @@ const Gallery = () => {
             </div>
           ))}
         </div>
+
+        {/* Uploaded Photos Section */}
+        {uploadedPhotos.length > 0 && (
+          <>
+            <div className="text-center mb-12">
+              <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
+                Ek Fotoğraflar
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {uploadedPhotos.map((photo) => (
+                <div 
+                  key={photo.id} 
+                  className="group relative overflow-hidden rounded-xl shadow-card hover:shadow-card-hover transition-all duration-500"
+                >
+                  <img 
+                    src={photo.url} 
+                    alt={photo.file_name} 
+                    className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-105" 
+                  />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>;
 };
