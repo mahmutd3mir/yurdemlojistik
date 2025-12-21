@@ -1,10 +1,11 @@
-import { Award, Clock, Shield, Users } from "lucide-react";
+import { Award, Clock, Shield, Users, FileCheck } from "lucide-react";
 
 const stats = [
   { icon: Clock, value: "2016", label: "Yılından Beri" },
   { icon: Users, value: "1000+", label: "Mutlu Müşteri" },
   { icon: Shield, value: "%100", label: "Güvenli Teslimat" },
   { icon: Award, value: "9+", label: "Yıllık Deneyim" },
+  { icon: FileCheck, value: "ADR", label: "Lisanslı Araçlar - Her Türlü Yetki Belgesi Mevcuttur" },
 ];
 
 const About = () => {
