@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import galleryBanner from "@/assets/gallery-banner.jpg";
 import galleryTruck1 from "@/assets/gallery-truck-1.jpg";
 import galleryTruck2 from "@/assets/gallery-truck-2.jpg";
@@ -5,6 +6,9 @@ import galleryTruck3 from "@/assets/gallery-truck-3.jpg";
 import galleryFleet from "@/assets/gallery-fleet.jpg";
 import gallerySite1 from "@/assets/gallery-site-1.jpg";
 import gallerySite2 from "@/assets/gallery-site-2.jpg";
+import gallerySite3 from "@/assets/gallery-site-3.jpg";
+import gallerySite4 from "@/assets/gallery-site-4.jpg";
+import gallerySite5 from "@/assets/gallery-site-5.jpg";
 import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
 const vehicleImages = [{
@@ -44,8 +48,56 @@ const siteImages = [{
   src: gallerySite2,
   alt: "Şantiye Operasyonu",
   title: "Saha Operasyonu"
+}, {
+  src: gallerySite3,
+  alt: "Gece Sondaj Operasyonu",
+  title: "Gece Operasyonu"
+}, {
+  src: gallerySite4,
+  alt: "Tanker Filosu Sahada",
+  title: "Saha Nakliyesi"
+}, {
+  src: gallerySite5,
+  alt: "Sondaj Sahası Çalışması",
+  title: "Sondaj Sahası"
 }];
+
 const Gallery = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    let scrollPos = 0;
+
+    const animate = () => {
+      scrollPos += 0.5;
+      if (scrollPos >= scrollContainer.scrollWidth / 2) {
+        scrollPos = 0;
+      }
+      scrollContainer.scrollLeft = scrollPos;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    const handleMouseEnter = () => cancelAnimationFrame(animationId);
+    const handleMouseLeave = () => {
+      animationId = requestAnimationFrame(animate);
+    };
+
+    scrollContainer.addEventListener("mouseenter", handleMouseEnter);
+    scrollContainer.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      scrollContainer.removeEventListener("mouseenter", handleMouseEnter);
+      scrollContainer.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
   return <section id="galeri" className="section-padding bg-secondary">
       <div className="container-custom">
         <div className="text-center mb-16">
@@ -78,16 +130,30 @@ const Gallery = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {siteImages.map((image, index) => <div key={index} className="group relative overflow-hidden rounded-xl shadow-card hover:shadow-card-hover transition-all duration-500">
-              <img src={image.src} alt={image.alt} className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105" />
+        {/* Horizontal Scrolling Gallery */}
+        <div 
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-hidden"
+        >
+          {/* Duplicate images for infinite scroll effect */}
+          {[...siteImages, ...siteImages].map((image, index) => (
+            <div 
+              key={index} 
+              className="group relative flex-shrink-0 w-80 md:w-96 overflow-hidden rounded-xl shadow-card hover:shadow-card-hover transition-all duration-500"
+            >
+              <img 
+                src={image.src} 
+                alt={image.alt} 
+                className="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                 <h3 className="font-heading text-xl font-bold text-primary-foreground">
                   {image.title}
                 </h3>
               </div>
-            </div>)}
+            </div>
+          ))}
         </div>
       </div>
     </section>;
