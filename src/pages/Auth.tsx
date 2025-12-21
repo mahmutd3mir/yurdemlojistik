@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +13,7 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -20,20 +22,44 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await signIn(email, password);
+    if (isSignUp) {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+        },
+      });
 
-    if (error) {
-      toast({
-        title: 'Giriş Hatası',
-        description: 'E-posta veya şifre hatalı.',
-        variant: 'destructive',
-      });
+      if (error) {
+        toast({
+          title: 'Kayıt Hatası',
+          description: error.message,
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Kayıt Başarılı',
+          description: 'Hesabınız oluşturuldu. Giriş yapabilirsiniz.',
+        });
+        setIsSignUp(false);
+      }
     } else {
-      toast({
-        title: 'Giriş Başarılı',
-        description: 'Admin paneline yönlendiriliyorsunuz.',
-      });
-      navigate('/admin');
+      const { error } = await signIn(email, password);
+
+      if (error) {
+        toast({
+          title: 'Giriş Hatası',
+          description: 'E-posta veya şifre hatalı.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Giriş Başarılı',
+          description: 'Admin paneline yönlendiriliyorsunuz.',
+        });
+        navigate('/admin');
+      }
     }
 
     setLoading(false);
@@ -46,10 +72,10 @@ const Auth = () => {
           <div className="flex flex-col items-center mb-8">
             <img src={logo} alt="Yurdem Lojistik" className="h-16 mb-4" />
             <h1 className="font-heading text-2xl font-bold text-foreground">
-              Admin Girişi
+              {isSignUp ? 'Admin Kaydı' : 'Admin Girişi'}
             </h1>
             <p className="text-muted-foreground text-sm mt-2">
-              Yönetim paneline erişmek için giriş yapın
+              {isSignUp ? 'Yeni admin hesabı oluşturun' : 'Yönetim paneline erişmek için giriş yapın'}
             </p>
           </div>
 
@@ -82,6 +108,7 @@ const Auth = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10"
                   required
+                  minLength={6}
                 />
               </div>
             </div>
@@ -91,9 +118,19 @@ const Auth = () => {
               className="w-full bg-primary hover:bg-primary/90"
               disabled={loading}
             >
-              {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
+              {loading ? 'İşleniyor...' : isSignUp ? 'Kayıt Ol' : 'Giriş Yap'}
             </Button>
           </form>
+
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="text-sm text-primary hover:underline"
+            >
+              {isSignUp ? 'Zaten hesabınız var mı? Giriş yapın' : 'Hesabınız yok mu? Kayıt olun'}
+            </button>
+          </div>
 
           <div className="mt-6 text-center">
             <Button
