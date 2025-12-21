@@ -1,11 +1,11 @@
-import { Droplets, Fuel, Construction } from "lucide-react";
+import { Droplets, Fuel, Construction, Trash2, Truck, Package } from "lucide-react";
 import OilPumpIcon from "./icons/OilPumpIcon";
 
 const services = [
   {
     icon: OilPumpIcon,
-    title: "Petrol Nakliyat",
-    description: "Petrol ve petrol ürünlerinin güvenli ve zamanında taşınması için profesyonel çözümler sunuyoruz.",
+    title: "Uluslararası Petrol Taşımacılığı",
+    description: "Petrol ve petrol ürünlerinin uluslararası güvenli ve zamanında taşınması için profesyonel çözümler sunuyoruz.",
   },
   {
     icon: Fuel,
@@ -21,6 +21,21 @@ const services = [
     icon: Droplets,
     title: "Su Nakliyat",
     description: "İçme suyu ve endüstriyel su taşımacılığında hijyenik ve güvenilir hizmet sağlıyoruz.",
+  },
+  {
+    icon: Trash2,
+    title: "Atık (Tehlikeli Atık) Nakliyat",
+    description: "Tehlikeli atıkların güvenli ve yasal mevzuata uygun şekilde taşınmasını sağlıyoruz.",
+  },
+  {
+    icon: Truck,
+    title: "Foseptik Nakliyesi",
+    description: "Foseptik ve atık su taşımacılığında hijyenik ve profesyonel hizmet sunuyoruz.",
+  },
+  {
+    icon: Package,
+    title: "Yük Nakliyesi (Her Türlü)",
+    description: "Her türlü yük taşımacılığında güvenilir ve hızlı çözümler üretiyoruz.",
   },
 ];
 
