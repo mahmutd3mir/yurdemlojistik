@@ -1,8 +1,9 @@
-import { Droplet, Droplets, Fuel, Construction } from "lucide-react";
+import { Droplets, Fuel, Construction } from "lucide-react";
+import OilPumpIcon from "./icons/OilPumpIcon";
 
 const services = [
   {
-    icon: Droplet,
+    icon: OilPumpIcon,
     title: "Petrol Nakliyat",
     description: "Petrol ve petrol ürünlerinin güvenli ve zamanında taşınması için profesyonel çözümler sunuyoruz.",
   },
