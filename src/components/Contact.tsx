@@ -8,7 +8,6 @@ const Contact = () => {
 
   const emails = [
     "selmanyurdem7272@gmail.com",
-    "yurdemlojistik@gmail.com",
   ];
 
   return (
