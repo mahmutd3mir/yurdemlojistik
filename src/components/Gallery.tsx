@@ -5,6 +5,8 @@ import galleryTruck3 from "@/assets/gallery-truck-3.jpg";
 import galleryFleet from "@/assets/gallery-fleet.jpg";
 import gallerySite1 from "@/assets/gallery-site-1.jpg";
 import gallerySite2 from "@/assets/gallery-site-2.jpg";
+import gallery5 from "@/assets/gallery-5.jpg";
+import gallery6 from "@/assets/gallery-6.jpg";
 const vehicleImages = [{
   src: galleryBanner,
   alt: "Yurdem Lojistik Banner",
@@ -25,6 +27,14 @@ const vehicleImages = [{
   src: galleryFleet,
   alt: "Araç Parkımız",
   title: "Araç Parkı"
+}, {
+  src: gallery5,
+  alt: "Filo Görünümü",
+  title: "Araç Filomuz"
+}, {
+  src: gallery6,
+  alt: "Yurdem Lojistik Tanker",
+  title: "Tanker Hizmeti"
 }];
 const siteImages = [{
   src: gallerySite1,
