@@ -1,13 +1,13 @@
-import { Droplets, Fuel, Truck, Construction } from "lucide-react";
+import { Droplet, Droplets, Fuel, Construction } from "lucide-react";
 
 const services = [
   {
-    icon: Fuel,
+    icon: Droplet,
     title: "Petrol Nakliyat",
     description: "Petrol ve petrol ürünlerinin güvenli ve zamanında taşınması için profesyonel çözümler sunuyoruz.",
   },
   {
-    icon: Truck,
+    icon: Fuel,
     title: "Yakıt Nakliyat",
     description: "Her türlü yakıt taşımacılığında deneyimli ekibimizle güvenli hizmet veriyoruz.",
   },
