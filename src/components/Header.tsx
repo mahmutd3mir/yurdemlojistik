@@ -1,4 +1,4 @@
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo-new.jpg";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
