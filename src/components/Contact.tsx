@@ -73,9 +73,18 @@ const Contact = () => {
             <h3 className="font-heading text-xl font-bold text-foreground mb-4">
               Konum
             </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Türkiye genelinde nakliyat hizmeti vermekteyiz. Detaylı konum bilgisi için bizimle iletişime geçin.
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              MENSEL PETROL, Bayındır, HASANKEYF YOLU KÜME EVLERİ BLOK NO:32, 72040 Batman Merkez/Batman
             </p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=MENSEL+PETROL+Bayındır+HASANKEYF+YOLU+KÜME+EVLERİ+BLOK+NO:32+72040+Batman+Merkez+Batman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+            >
+              <MapPin className="w-4 h-4" />
+              Haritada Görüntüle
+            </a>
           </div>
 
           {/* Working Hours */}
