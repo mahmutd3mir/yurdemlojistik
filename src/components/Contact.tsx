@@ -1,9 +1,14 @@
-import { Phone, MapPin, Clock } from "lucide-react";
+import { Phone, MapPin, Clock, Mail } from "lucide-react";
 
 const Contact = () => {
   const contacts = [
     { name: "Arda YURDEM", phone: "0506 556 80 95" },
     { name: "Mehmet Selman YURDEM", phone: "0542 788 80 95" },
+  ];
+
+  const emails = [
+    "selmanyurdem7272@gmail.com",
+    "yurdemlojistik@gmail.com",
   ];
 
   return (
@@ -39,6 +44,25 @@ const Contact = () => {
                   </a>
                 </div>
               ))}
+            </div>
+            
+            {/* Email Addresses */}
+            <div className="mt-6 pt-6 border-t border-border">
+              <div className="flex items-center gap-2 mb-3">
+                <Mail className="w-5 h-5 text-primary" />
+                <span className="font-heading text-lg font-bold text-foreground">E-posta</span>
+              </div>
+              <div className="space-y-2">
+                {emails.map((email) => (
+                  <a
+                    key={email}
+                    href={`mailto:${email}`}
+                    className="block text-primary hover:underline text-sm"
+                  >
+                    {email}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 

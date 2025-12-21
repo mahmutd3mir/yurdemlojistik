@@ -1,5 +1,5 @@
 import logo from "@/assets/logo.jpg";
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -38,6 +38,17 @@ const Footer = () => {
                   <p className="text-primary-foreground/70 text-sm">Mehmet Selman YURDEM</p>
                   <a href="tel:05427888095" className="hover:text-sky transition-colors">
                     0542 788 80 95
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 mt-1 text-sky" />
+                <div>
+                  <a href="mailto:selmanyurdem7272@gmail.com" className="block hover:text-sky transition-colors text-sm">
+                    selmanyurdem7272@gmail.com
+                  </a>
+                  <a href="mailto:yurdemlojistik@gmail.com" className="block hover:text-sky transition-colors text-sm">
+                    yurdemlojistik@gmail.com
                   </a>
                 </div>
               </div>
