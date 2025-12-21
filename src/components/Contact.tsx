@@ -74,16 +74,16 @@ const Contact = () => {
               Konum
             </h3>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              MENSEL PETROL, Bayındır, HASANKEYF YOLU KÜME EVLERİ BLOK NO:32, 72040 Batman Merkez/Batman
+              PINARBASI Mah. 2210 Sok. BESIKTAS APT Sit. BESIKTAS APT No: 2 / 16 MERKEZ/BATMAN
             </p>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=MENSEL+PETROL+Bayındır+HASANKEYF+YOLU+KÜME+EVLERİ+BLOK+NO:32+72040+Batman+Merkez+Batman"
+              href="https://www.google.com/maps/dir/?api=1&destination=PINARBASI+Mah+2210+Sok+BESIKTAS+APT+MERKEZ+BATMAN"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
             >
               <MapPin className="w-4 h-4" />
-              Haritada Görüntüle
+              Yol Tarifi Al
             </a>
           </div>
 
