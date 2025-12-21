@@ -87,9 +87,7 @@ const Contact = () => {
               Çalışma Saatleri
             </h3>
             <div className="space-y-2 text-muted-foreground">
-              <p>Pazartesi - Cumartesi: 08:00 - 18:00</p>
-              <p>Pazar: Kapalı</p>
-              <p className="text-primary font-medium mt-4">Acil durumlar için 7/24 ulaşılabilir</p>
+              <p className="text-lg font-medium text-primary">Her gün açık - 7/24</p>
             </div>
           </div>
         </div>
