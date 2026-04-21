@@ -1,6 +1,4 @@
-Got it, Mami. Since GitHub is a global platform, having a high-quality English README will definitely make your profile look more professional to international recruiters and the open-source community.
 
-Here is the English version of your project documentation, optimized for a clean and technical look:
 
 🌐 Enterprise Web Architecture: End-to-End Solutions
 This repository showcases a high-performance, scalable web architecture designed for corporate environments. By leveraging a modern stack of Lovable, Supabase, and Vercel, this project bridge the gap between rapid development and enterprise-grade reliability.
